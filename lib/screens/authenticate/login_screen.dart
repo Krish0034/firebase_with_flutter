@@ -22,6 +22,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
 
   FirebaseAuth _auth=FirebaseAuth.instance;
+
   final _formKey=GlobalKey<FormState>();
   final emailControlle=TextEditingController();
   final passwordControlle=TextEditingController();
@@ -39,6 +40,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
   void logIn()
   {
+    final user=_auth.currentUser;
+    final name=user?.displayName;
     setState(() {
       loading=true;
     });
@@ -145,7 +148,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: CustomsColors.c3,
-                                ),                            borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
                           ),

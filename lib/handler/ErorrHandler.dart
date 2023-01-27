@@ -10,7 +10,7 @@ class ErorrHandler
        msg: messs,
        toastLength: Toast.LENGTH_SHORT,
        gravity: ToastGravity.BOTTOM,
-       timeInSecForIosWeb: 40,
+       timeInSecForIosWeb: 120,
        backgroundColor: CustomsColors.c3,
        textColor: CustomsColors.c14,
        fontSize: 22.0

@@ -16,7 +16,8 @@ dependencies:
   hexcolor: ^3.0.1
   firebase_core: ^2.4.1
   fluttertoast: ^8.1.2
-#  cupertino_icons: ^1.0.5
+  cupertino_icons: ^1.0.5
+  like_button: ^2.0.5
 
 dev_dependencies:
   flutter_test:
@@ -33,6 +34,7 @@ flutter:
     - assets/images/
     - assets/icon/
     - assets/friends/
+    - assets/post/
   fonts:
     - family: Calinea
       fonts:

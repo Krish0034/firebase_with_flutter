@@ -1,3 +1,4 @@
+
 class Friend
 {
   late String name;
@@ -5,9 +6,8 @@ class Friend
 
   Friend({required this.name, required this.image});
 }
-
 List favorite=[
-  Friend(name: "name", image: 'assets/friends/current.jpg'),
+  Friend(name: 'user', image: 'assets/friends/current.jpg'),
   Friend(name: "Krish", image: 'assets/friends/krish.jpg'),
   Friend(name: "Anuj", image: 'assets/friends/krish.jpg'),
   Friend(name: "Harsh", image: 'assets/friends/krish.jpg'),
