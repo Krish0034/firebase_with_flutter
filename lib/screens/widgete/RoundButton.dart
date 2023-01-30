@@ -16,7 +16,7 @@ class RoundButton extends StatelessWidget {
         height: 50,
         decoration: BoxDecoration(
           color: CustomsColors.c3,
-          borderRadius: BorderRadius.circular(15)
+          borderRadius: BorderRadius.circular(20)
         ),
         child: Center(
           child: loading? CircularProgressIndicator(strokeWidth: 3,color: CustomsColors.c6,) :Text(title,style:TextStyle(

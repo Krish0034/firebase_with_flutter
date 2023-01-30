@@ -3,12 +3,10 @@ import 'package:firebase_with_flutter/handler/ErorrHandler.dart';
 import 'package:firebase_with_flutter/screens/authenticate/login_screen.dart';
 import 'package:firebase_with_flutter/utils/CustomsColors.dart';
 import 'package:flutter/material.dart';
-import 'package:like_button/like_button.dart';
-
 import '../../models/FriendList.dart';
-import '../../utils/MyFlutterApp.dart';
+import '../chatpage/ChatPage.dart';
 import '../widgete/FriendListWidget.dart';
-import '../widgete/HomePageMaterial.dart';
+import 'HomePageMaterial.dart';
 
 class InstaHomePage extends StatefulWidget {
 //  String name;
@@ -51,7 +49,9 @@ class _InstaHomePageState extends State<InstaHomePage> {
             type: MaterialType.transparency,
             child: Ink(
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  
+                },
                 child:Icon(
                   Icons.add_box,
                   size: 30.0,
@@ -79,7 +79,9 @@ class _InstaHomePageState extends State<InstaHomePage> {
             type: MaterialType.transparency,
             child: Ink(
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage()));
+                },
                 child:Icon(
                   Icons.send,
                   size: 30.0,
@@ -110,16 +112,17 @@ class _InstaHomePageState extends State<InstaHomePage> {
           ),
         ]),
       backgroundColor: CustomsColors.c3,
-      body: ListView(
-        //mainAxisAlignment: MainAxisAlignment.start,
+      body: Column(
         children: [
+          // home page storyCircleAvtar
           Container(
-            height: 120,
+            height: 150,
             color: CustomsColors.c3,
             child: FriendListWidget(direction:Axis.horizontal,length:length,),
           ),
+          // Home Page Post Imagese
           Container(
-              height: 400,
+              height: 600,
               //color: CustomsColors.c14,
               child: HomePageMaterial()
          ),

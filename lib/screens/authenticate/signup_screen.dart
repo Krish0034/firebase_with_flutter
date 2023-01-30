@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_with_flutter/handler/ErorrHandler.dart';
 import 'package:firebase_with_flutter/screens/authenticate/login_screen.dart';
+import 'package:firebase_with_flutter/screens/authenticate/signup_with_phone_no.dart';
 import 'package:firebase_with_flutter/screens/widgete/RoundButton.dart';
 import 'package:firebase_with_flutter/utils/CustomsColors.dart';
 import 'package:firebase_with_flutter/utils/PageBgColor.dart';
@@ -35,9 +36,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void dispose()
   {
+    emailControlle.dispose();
+    passwordControlle.dispose();
+    nameControlle.dispose();
     super.dispose();
   }
-
   Future<void> signUP() async {
     {
       setState(() {
@@ -82,7 +85,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             scrollDirection: Axis.vertical,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height-50,
+              height: MediaQuery.of(context).size.height-90,
               decoration:BoxDecoration(
                   gradient: LinearGradient(
                       colors: [
@@ -97,7 +100,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 50,),
+                  const SizedBox(height: 60,),
+                  // instagram heading
                   Text('Instagram',style: TextStyle(
                       fontFamily: 'Calinea',
                       fontSize: 53,
@@ -106,6 +110,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       color: CustomsColors.c3
                   ),),
                   const SizedBox(height: 10,),
+                  // TextFormField
                   Form(
                       key: _formKey,
                       child:Column(
@@ -143,7 +148,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: CustomsColors.c3,
-                                  ),                            borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
                             ),
@@ -234,6 +240,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ],
                       )
                   ),
+                  const SizedBox(height: 10,),
+                  // SignUp Button
                   RoundButton(
                     title: 'SignUp',
                     loading: loading,
@@ -251,7 +259,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       });
                     },
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 40),
+                  // ------------------- OR -------------- Code
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -278,7 +287,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 10),
+                  // Signup with FaceBook
                   Padding(
                     padding: const EdgeInsets.only(left: 65,right: 65),
                     child: TextButton(
@@ -289,7 +299,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           child: Row(
                             children: [
                               Image.asset('assets/icon/facebook.png',width: 40,height: 30,color: CustomsColors.c3),
-                              Text('Login With Facebook',style: TextStyle(
+                              Text('SignUp With Facebook',style: TextStyle(
                                 color: CustomsColors.c3,
                                 fontSize: 18,
                                 letterSpacing: 1.0,
@@ -299,11 +309,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         )
                     ),
                   ),
-                  const SizedBox(height: 60,),
+                  // SignUp with Phone number
+                  // InkWell(
+                  //   onTap: () {
+                  //     Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpWithPhoneNumber()));
+                  //   },
+                  //   child: Container(
+                  //     width: 350,
+                  //     height: 60,
+                  //     decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(30),
+                  //       color: CustomsColors.c3,
+                  //     ),
+                  //     child: Center(child:Text('SignUp With Phone number',style: TextStyle(
+                  //       color: CustomsColors.c14,
+                  //       fontSize: 21,
+                  //       letterSpacing: 1.0,
+                  //       wordSpacing: 0.1,
+                  //     ),)),
+                  //   ),
+                  // ),
+                  const SizedBox(height: 180,),
+                  //divider
                   Divider(
                     color: CustomsColors.c10,
                     thickness: 1.5,
                   ),
+                  // already have account
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

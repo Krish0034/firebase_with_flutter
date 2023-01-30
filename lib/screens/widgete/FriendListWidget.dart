@@ -27,7 +27,7 @@ class FriendListWidget extends StatelessWidget {
             ),
           ),
          SizedBox(
-           width: 90,
+           width: 80,
            child: Align(
              alignment: Alignment.center,
              child: Text(

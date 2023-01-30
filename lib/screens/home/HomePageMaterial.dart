@@ -1,5 +1,4 @@
 import 'package:firebase_with_flutter/models/FriendList.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 
@@ -25,24 +24,23 @@ class _HomePageMaterialState extends State<HomePageMaterial> {
       itemBuilder:(context, index) {
         return  Container(
           width: MediaQuery.of(context).size.width,
-          height:500,
+          height:700,
           color: CustomsColors.c3,
           child: Column(
             children: [
+
               Row(
                 children: [
-                  Padding(
-                    padding:EdgeInsets.only(left: 3),
-                    child: CircleAvatar(
-                      radius: 30,
-                      backgroundImage: AssetImage(favorite[index].image),
-                    ),
+                  SizedBox(width: 5,),
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundImage: AssetImage(favorite[index].image),
                   ),
                   SizedBox(width: 5,),
                   Text(favorite[index].name,style: TextStyle(
                       color: CustomsColors.c14,fontSize: 22,letterSpacing: 1.0)),
                   Padding(
-                    padding: const EdgeInsets.only(left: 220),
+                    padding: const EdgeInsets.only(left: 110),
                     child: IconButton(
                         onPressed: () {},
                         icon:Icon(Icons.more_horiz_outlined,color: CustomsColors.c6.withOpacity(0.6),size: 25,)
@@ -50,35 +48,36 @@ class _HomePageMaterialState extends State<HomePageMaterial> {
                   ),
                 ],
               ),
-              SizedBox(height: 5,),
+              SizedBox(height: 10,),
               Container(
-                height: 380,
+                height: 500,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                     border: Border.all(),
                     image: DecorationImage(
-                      image: AssetImage(userItem[1].postImage),
+                      image: AssetImage(userItem[index].postImage),
                       fit:BoxFit.fill,
                     )
                 ),
               ),
+              SizedBox(height: 10,),
               Row(
                 children: [
                   SizedBox(width: 10,),
                   // LikeButton
                   LikeButton(
-                    size: 25,
-                    circleColor: CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
-                    bubblesColor: BubblesColor(
-                      dotPrimaryColor: Color(0xff33b5e5),
-                      dotSecondaryColor: Color(0xff0099cc),
-                    ),
+                    size: 28,
+                    // circleColor: CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                    // bubblesColor: BubblesColor(
+                    //   dotPrimaryColor: Color(0xff33b5e5),
+                    //   dotSecondaryColor: Color(0xff0099cc),
+                    // ),
                     isLiked:isLiked,
                     likeBuilder: (bool isLiked) {
                       return Icon(
                         isLiked ? Icons.favorite: Icons.favorite_border,
                         color: isLiked ? Colors.red : null,
-                        size: 25,
+                        size: 28,
                       );
                     },
                     likeCount: count,
@@ -103,13 +102,14 @@ class _HomePageMaterialState extends State<HomePageMaterial> {
                   IconButton(
                       onPressed: () {
                       },
-                      icon: Icon(Icons.comment)
+
+                      icon: Icon(Icons.comment,size: 28,)
                   ),
                   SizedBox(width: 10,),
                   // Send Button
-                  Transform.rotate(
-                    angle: 100,
-                    child: Center(
+                  Center(
+                    child: Transform.rotate(
+                      angle: 5.7,
                       child: IconButton(
                           onPressed: () {
                           },

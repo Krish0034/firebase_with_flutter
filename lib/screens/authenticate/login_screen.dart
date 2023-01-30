@@ -11,6 +11,7 @@ import '../../handler/ErorrHandler.dart';
 import '../../models/FriendList.dart';
 import '../home/InstaHomePage.dart';
 import '../widgete/RoundButton.dart';
+import 'login_with_phone.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -86,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
           scrollDirection: Axis.vertical,
           child: Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height-118,
+            height: MediaQuery.of(context).size.height-90,
             decoration:BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -101,7 +102,8 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(height: 100,),
+                const SizedBox(height: 90,),
+                // Instagram heading
                 Text('Instagram',style: TextStyle(
                   fontFamily: 'Calinea',
                   fontSize: 53,
@@ -110,6 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: CustomsColors.c3
                 ),),
                 const SizedBox(height: 10,),
+                // TextFormField
                 Form(
                     key: _formKey,
                     child:Column(
@@ -202,6 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     )
                 ),
+                // Login Button
                 RoundButton(
                   title: 'LogIn',
                   loading: loading,
@@ -217,7 +221,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
                   },
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 40),
+                // ------------- OR ---------- code
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -245,6 +250,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 const SizedBox(height: 30),
+                //Login with FaceBook
                 Padding(
                   padding: const EdgeInsets.only(left: 65,right: 65),
                   child: TextButton(
@@ -265,11 +271,35 @@ class _LoginScreenState extends State<LoginScreen> {
                       )
                   ),
                 ),
-                const SizedBox(height: 60,),
+                const SizedBox(height: 30),
+                //Login With Phone Number
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginWithPhoneNumber()));
+                  },
+                  child: Container(
+                    width: 350,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: CustomsColors.c3,
+                    ),
+                    child: Center(child:Text('Login With Phone number',style: TextStyle(
+                      color: CustomsColors.c14,
+                      fontSize: 21,
+                      letterSpacing: 1.0,
+                      wordSpacing: 0.1,
+
+                    ),)),
+                  ),
+                ),
+                const SizedBox(height: 115,),
+                // Divider
                 Divider(
                   color: CustomsColors.c10,
                   thickness: 1.3,
                 ),
+                // dont have account /signup
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
