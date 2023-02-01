@@ -288,6 +288,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.0"
+  material_design_icons_flutter:
+    dependency: "direct main"
+    description:
+      name: material_design_icons_flutter
+      sha256: "8ef8562d16e747b2d93e5da5c2508931588939c5c00ebc8e2768e803db7dfd3c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.7096"
   meta:
     dependency: transitive
     description:
@@ -304,6 +312,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.2"
+  pinch_zoom:
+    dependency: "direct main"
+    description:
+      name: pinch_zoom
+      sha256: ad12872281742726afaf03438d99a4572c584a612630768953beb6dfd6f9389a
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   plugin_platform_interface:
     dependency: transitive
     description:

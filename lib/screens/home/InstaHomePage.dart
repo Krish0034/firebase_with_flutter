@@ -3,7 +3,12 @@ import 'package:firebase_with_flutter/handler/ErorrHandler.dart';
 import 'package:firebase_with_flutter/screens/authenticate/login_screen.dart';
 import 'package:firebase_with_flutter/utils/CustomsColors.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import '../../dao/addicon/FireStoreAddNew.dart';
+import '../../dao/eyeIcon/FetchDataFormFireBaseStore.dart';
+import '../../dao/eyeIcon/FetchDataFormRTDB.dart';
 import '../../models/FriendList.dart';
+import '../../dao/addicon/RTDBAddNew.dart';
 import '../chatpage/ChatPage.dart';
 import '../widgete/FriendListWidget.dart';
 import 'HomePageMaterial.dart';
@@ -27,103 +32,133 @@ class _InstaHomePageState extends State<InstaHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final double size=30;
     return Scaffold(
-      appBar:AppBar(
-        toolbarHeight: 100,
-        automaticallyImplyLeading: false,
-        backgroundColor: CustomsColors.c3,
-        title:Text('Instagram',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 38,
-            letterSpacing: .8,
-            fontFamily: 'Calinea',
-            color: CustomsColors.c6
-          ),
+      appBar:PreferredSize(
+        preferredSize: Size.fromHeight(180),
+        child: Column(
+          children: [
+            AppBar(
+              // toolbarHeight:,
+              automaticallyImplyLeading: false,
+              backgroundColor: CustomsColors.c3,
+              title:Text('Instagram',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 38,
+                  letterSpacing: .8,
+                  fontFamily: 'Calinea',
+                  color: CustomsColors.c6
+                ),
 
+              ),
+              elevation: 0.0,
+              actions: [
+                //home page AddIcon
+                PopupMenuButton(
+                  icon: Icon(
+                    Icons.add_box,
+                    size: 30.0,
+                    color: CustomsColors.c6.withOpacity(0.7),
+                  ),
+                 itemBuilder:(context) => [
+                   PopupMenuItem(
+                     child:ListTile(
+                       onTap: () {
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=> RTDBAddNew()));
+                       },
+                       leading: Icon(MdiIcons.databaseArrowRight),
+                       title: Text('RealTimeDB'),
+                     ),
+                     value: 1,
+                   ),
+                   PopupMenuItem(
+                       child:ListTile(
+                         onTap: () {
+                           Navigator.push(context, MaterialPageRoute(builder: (context)=> FireStoreAddNew()));
+                         },
+                         leading: Icon(MdiIcons.cloudUpload),
+                         title: Text('FireStoreDB'),
+                       ),
+                     value:2 ,
+                   ),
+                 ],
+                ),
+
+                //Home page eyes icon
+                PopupMenuButton(
+                  icon: Icon(
+                    Icons.remove_red_eye,
+                    size: 30.0,
+                    color: CustomsColors.c6.withOpacity(0.7),
+                  ),
+                 itemBuilder:(context) => [
+                   PopupMenuItem(
+                     child:ListTile(
+                       onTap: () {
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=> FetchDataFormRTDB()));
+                       },
+                       leading: Icon(MdiIcons.databaseArrowRight),
+                       title: Text('RealTimeDB'),
+                     ),
+                     value: 1,
+                   ),
+                   PopupMenuItem(
+                       child:ListTile(
+                         onTap: () {
+                           Navigator.push(context, MaterialPageRoute(builder: (context)=> FetchDataFormFireBaseStore()));
+                         },
+                         leading: Icon(MdiIcons.cloudUpload),
+                         title: Text('FireStoreDB'),
+                       ),
+                     value:2 ,
+                   ),
+                 ],
+                ),
+
+                // Home Page chatIcon
+                IconButton(
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage()));
+                    },
+                    icon:  Icon(
+                      Icons.send,
+                      size: 30.0,
+                      color: CustomsColors.c6.withOpacity(0.7),
+                    ),
+                ),
+                // Home Page LogoutIcon
+                IconButton(
+                      onPressed:() {
+                    auth.signOut().then((value){
+                      Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginScreen()));
+                    }).onError((error, stackTrace){
+                      ErorrHandler().toastMessage(error.toString());
+                    });
+                  },
+                  icon:Icon(
+                    Icons.logout,
+                    size: 30.0,
+                    color: CustomsColors.c6.withOpacity(0.7),
+                  ),
+                ),
+              ]),
+
+            // FriendList CircularAvtar with story
+            Container(
+                height: 120,
+                child: FriendListWidget(direction:Axis.horizontal,length:length,)
+            ),
+          ],
         ),
-        elevation: 0.0,
-        actions: [
-          Material(
-            type: MaterialType.transparency,
-            child: Ink(
-              child: InkWell(
-                onTap: () {
-                  
-                },
-                child:Icon(
-                  Icons.add_box,
-                  size: 30.0,
-                  color: CustomsColors.c6.withOpacity(0.7),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(width: 5,),
-          Material(
-            type: MaterialType.transparency,
-            child: Ink(
-              child: InkWell(
-                onTap: () {},
-                child:Icon(
-                  Icons.favorite_border,
-                  size: 30.0,
-                  color: CustomsColors.c6.withOpacity(0.7),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(width: 5,),
-          Material(
-            type: MaterialType.transparency,
-            child: Ink(
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatPage()));
-                },
-                child:Icon(
-                  Icons.send,
-                  size: 30.0,
-                  color: CustomsColors.c6.withOpacity(0.7),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(width: 5,),
-          Material(
-            type: MaterialType.transparency,
-            child: Ink(
-              child: InkWell(
-                onTap: () {
-                  auth.signOut().then((value){
-                    Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginScreen()));
-                  }).onError((error, stackTrace){
-                    ErorrHandler().toastMessage(error.toString());
-                  });
-                },
-                child:Icon(
-                  Icons.logout,
-                  size: 30.0,
-                  color: CustomsColors.c6.withOpacity(0.7),
-                ),
-              ),
-            ),
-          ),
-        ]),
+      ),
       backgroundColor: CustomsColors.c3,
-      body: Column(
+      body: ListView(
+       // mainAxisAlignment: MainAxisAlignment.start,
+        shrinkWrap: true,
         children: [
-          // home page storyCircleAvtar
-          Container(
-            height: 150,
-            color: CustomsColors.c3,
-            child: FriendListWidget(direction:Axis.horizontal,length:length,),
-          ),
           // Home Page Post Imagese
           Container(
-              height: 600,
-              //color: CustomsColors.c14,
+              height: MediaQuery.of(context).size.height-200,
               child: HomePageMaterial()
          ),
         ],

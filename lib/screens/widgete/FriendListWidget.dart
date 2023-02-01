@@ -26,20 +26,16 @@ class FriendListWidget extends StatelessWidget {
               backgroundImage: AssetImage(favorite[index].image),
             ),
           ),
-         SizedBox(
-           width: 80,
-           child: Align(
-             alignment: Alignment.center,
-             child: Text(
-                favorite[index].name,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.8,
-                    fontSize: 19,
-                  //  letterSpacing: 1.0
-                ),
-              ),
-           ),
+         Padding(
+           padding: const EdgeInsets.all(8.0),
+           child: Text(
+            favorite[index].name,
+            style: TextStyle(
+                letterSpacing: 0.8,
+                fontSize: 18,
+              //  letterSpacing: 1.0
+            ),
+            ),
          ),
       ],
     );

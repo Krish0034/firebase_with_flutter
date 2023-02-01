@@ -16,8 +16,10 @@ dependencies:
   firebase_core: ^2.4.1
   firebase_database: ^10.0.9
   fluttertoast: ^8.1.2
+  pinch_zoom: ^1.0.0
   cupertino_icons: ^1.0.5
   like_button: ^2.0.5
+  material_design_icons_flutter: 6.0.7096
 
 dev_dependencies:
   flutter_test:
@@ -40,7 +42,8 @@ flutter:
     - family: Calinea
       fonts:
         - asset: assets/fonts/Calinea.ttf
-    - family: MyFlutterApp
-      fonts:
-        - asset: assets/fonts/MyFlutterApp.ttf
-        - asset: assets/fonts/HeartIcon.ttf
+#    - family: MyFlutterApp
+#      fonts:
+#        - asset: assets/fonts/MyFlutterApp.ttf
+#        - asset: assets/fonts/HeartIcon.ttf
+#        - asset: assets/fonts/DataBase.ttf

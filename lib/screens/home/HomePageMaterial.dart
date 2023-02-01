@@ -1,6 +1,7 @@
 import 'package:firebase_with_flutter/models/FriendList.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
+import 'package:pinch_zoom/pinch_zoom.dart';
 
 import '../../models/UserItems.dart';
 import '../../utils/CustomsColors.dart';
@@ -16,20 +17,20 @@ class HomePageMaterial extends StatefulWidget {
 class _HomePageMaterialState extends State<HomePageMaterial> {
   bool isLiked =false;
   int count=0;
+  int length=favorite.length;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       scrollDirection: Axis.vertical,
-      itemCount: userItem.length,
+      itemCount: length,
       itemBuilder:(context, index) {
-        return  Container(
+        return Container(
           width: MediaQuery.of(context).size.width,
-          height:700,
-          color: CustomsColors.c3,
+          height:MediaQuery.of(context).size.width+100,
           child: Column(
             children: [
-
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(width: 5,),
                   CircleAvatar(
@@ -39,28 +40,30 @@ class _HomePageMaterialState extends State<HomePageMaterial> {
                   SizedBox(width: 5,),
                   Text(favorite[index].name,style: TextStyle(
                       color: CustomsColors.c14,fontSize: 22,letterSpacing: 1.0)),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 110),
-                    child: IconButton(
-                        onPressed: () {},
-                        icon:Icon(Icons.more_horiz_outlined,color: CustomsColors.c6.withOpacity(0.6),size: 25,)
-                    ),
+                  SizedBox(width: MediaQuery.of(context).size.width/2,),
+                  IconButton(
+                      onPressed: () {},
+                      icon:Icon(Icons.more_horiz_outlined,color: CustomsColors.c6.withOpacity(0.6),size: 25,)
                   ),
                 ],
               ),
-              SizedBox(height: 10,),
+              SizedBox(height: 5,),
+
+              // Post Images
               Container(
-                height: 500,
+                height: 400,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                    border: Border.all(),
+                    borderRadius: BorderRadius.circular(10),
+                    border:Border.all(width: 2,color: CustomsColors.c11),
                     image: DecorationImage(
                       image: AssetImage(userItem[index].postImage),
                       fit:BoxFit.fill,
                     )
                 ),
               ),
-              SizedBox(height: 10,),
+
+              // Like Comment , and Send Button
               Row(
                 children: [
                   SizedBox(width: 10,),
