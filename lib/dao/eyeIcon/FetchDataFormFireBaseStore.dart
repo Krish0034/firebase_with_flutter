@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
-import 'package:firebase_with_flutter/handler/ErorrHandler.dart';
+import 'package:firebase_with_flutter/handler/ErrorHandler.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/CustomsColors.dart';
@@ -19,6 +19,11 @@ class _FetchDataFormFireBaseStoreState extends State<FetchDataFormFireBaseStore>
 
   final auth = FirebaseAuth.instance;
   final fireStore=FirebaseFirestore.instance.collection('FireStoreData').snapshots();
+  CollectionReference ref=FirebaseFirestore.instance.collection('FireStoreData');
+
+  // user id which pass by user
+
+
   late AnimationController circularController;
   final searchFilter = TextEditingController();
   final editController = TextEditingController();
@@ -55,7 +60,7 @@ class _FetchDataFormFireBaseStoreState extends State<FetchDataFormFireBaseStore>
         backgroundColor: CustomsColors.c3,
         title: Center(
           child: Text(
-            'FetchDataFormRTDB',
+            'FetchDataFormFireStore',
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
@@ -103,6 +108,8 @@ class _FetchDataFormFireBaseStoreState extends State<FetchDataFormFireBaseStore>
             child: StreamBuilder(
               stream: fireStore,
               builder:(BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot) {
+
+                // circualr indicator that's means waiting
                 if(snapshot.connectionState== ConnectionState.waiting)
                 {
                   return Center(
@@ -113,20 +120,75 @@ class _FetchDataFormFireBaseStoreState extends State<FetchDataFormFireBaseStore>
                     ),
                   );
                 }
+                // this is give us error
                 if(snapshot.hasError)
                 {
-                  return Text('Some Error');
+                  return Text('Some Error...');
                 }
-               else
-                 {
+                else
+                {
                    return ListView.builder(
                        itemCount: snapshot.data!.docs.length,
                        itemBuilder: (context,index)
                        {
+                         String title=snapshot.data!.docs[index]['title'].toString();
+                         String id=snapshot.data!.docs[index]['id'].toString();
 
-                         return ListTile(
-                           title: Text(snapshot.data!.docs[index]['title']),
-                         );
+                         // show data which store on firebasefirestore db
+                         if(searchFilter.text.isEmpty)
+                           {
+                             return ListTile(
+                               title: Text(title),
+                               subtitle: Text(id),
+
+                               // edit icon where u can update data and deleted
+                               trailing: PopupMenuButton(
+                                 icon: Icon(Icons.more_vert_sharp),
+                                 itemBuilder: (context)=>[
+
+                                   //updated code
+                                   PopupMenuItem(
+                                       child: ListTile(
+                                         onTap: (){
+                                           Navigator.pop(context);
+                                           showMyDialogue(title,id);
+                                         },
+                                         leading: Icon(Icons.edit),
+                                         title: Text('Edit'),
+                                       )
+                                   ),
+
+                                   // deleted code
+                                   PopupMenuItem(
+                                       child: ListTile(
+                                         onTap: (){
+                                           Navigator.pop(context);
+                                           ref.doc(id).delete().then((value){
+                                             ErrorHandler().toastMessage('Deleted Successfully');
+                                           }).onError((error, stackTrace){
+                                             ErrorHandler().toastMessage(error.toString());
+                                           });
+                                         },
+                                         leading: Icon(Icons.delete),
+                                         title: Text('Delete'),
+                                       )
+                                   ),
+                                 ],
+                               ),
+                             );
+                           }
+                         else if(title.toLowerCase().contains(searchFilter.text.toLowerCase().toString()))
+                           {
+                             return ListTile(
+                               title: Text(snapshot.data!.docs[index]['title'].toString()),
+                               subtitle: Text(snapshot.data!.docs[index]['id'].toString()),
+                             );
+                           }
+                         else
+                           {
+                             return Container();
+                           }
+
                        }
                    );
                  }
@@ -135,95 +197,38 @@ class _FetchDataFormFireBaseStoreState extends State<FetchDataFormFireBaseStore>
 
             )
           ),
-          // Retrive Data From FireBaseDataBase with the help of FirebaseAnimatedList
-          // Expanded(
-          //   child: FirebaseAnimatedList(
-          //       query:fireStore,
-          //       defaultChild: Center(
-          //         child: CircularProgressIndicator(
-          //           color: CustomsColors.c11,
-          //           backgroundColor: CustomsColors.c3,
-          //           strokeWidth: 5,
-          //         ),
-          //       ),
-          //       itemBuilder:(context,snapshot,animation,index)
-          //       {
-          //         final title=snapshot.child('title').value.toString();
-          //         final id=snapshot.child('id').value.toString();
-          //         if(searchFilter.text.isEmpty)
-          //         {
-          //           return ListTile(
-          //             title:Text('Title: ' + snapshot.child('title').value.toString(),
-          //               style: TextStyle(
-          //                 color: CustomsColors.c15,
-          //                 // fontSize: 20
-          //               ),),
-          //             subtitle:Text('Id: ' + id,
-          //               style: TextStyle(
-          //                 color: CustomsColors.c15,
-          //                 // fontSize: 20
-          //               ),),
-          //             trailing: PopupMenuButton(
-          //               icon: Icon(Icons.more_vert_sharp),
-          //               itemBuilder: (context)=>[
-          //
-          //                 //Update or Edit
-          //                 PopupMenuItem(
-          //                   value:1,
-          //                   child: ListTile(
-          //                     onTap: () {
-          //                       Navigator.pop(context);
-          //                       showMyDialog(title,id);
-          //                     },
-          //                     leading: Icon(Icons.edit),
-          //                     title: Text('Edit'),
-          //                   ) ,
-          //                 ),
-          //
-          //                 // Delete
-          //                 PopupMenuItem(
-          //                   value:1,
-          //                   child: ListTile(
-          //                     onTap: () {
-          //                       Navigator.pop(context);
-          //                       ref.child(snapshot.child('id').value.toString()).remove();
-          //                     },
-          //                     leading: Icon(Icons.delete),
-          //                     title: Text('Delete'),
-          //                   ) ,
-          //                 ),
-          //
-          //               ],
-          //             ),
-          //           );
-          //         }
-          //         else if(title.toLowerCase().contains(searchFilter.text.toLowerCase().toString()))
-          //         {
-          //           return ListTile(
-          //             title: Text(
-          //               'Title: ' + snapshot.child('title').value.toString(),
-          //               style: TextStyle(
-          //                 color: CustomsColors.c15,
-          //                 // fontSize: 20
-          //               ),
-          //             ),
-          //             subtitle: Text(
-          //               'Id: ' + snapshot.child('id').value.toString(),
-          //               style: TextStyle(
-          //                 color: CustomsColors.c15,
-          //                 // fontSize: 20
-          //               ),
-          //             ),
-          //           );
-          //         }
-          //         else
-          //         {
-          //           return Container();
-          //         }
-          //
-          //       }
-          //   ),
-          // )
+          /// /future builder use to access user by id
+         //  Expanded(
+         //     child:FutureBuilder(
+         //
+         //       future: ref.doc('203').get(),
+         //       builder: (BuildContext context,AsyncSnapshot<DocumentSnapshot> snapshot){
+         //         if(snapshot.hasError)
+         //         {
+         //           return Text('Some Error...');
+         //         }
+         //         else if(snapshot.hasData && !snapshot.data!.exists)
+         //           {
+         //             return Text("Document does not exist");
+         //           }
+         //         else if (snapshot.connectionState == ConnectionState.done) {
+         //           Map<String, dynamic> map = snapshot.data!.data() as Map<String, dynamic>;
+         //           List<dynamic> list=[];
+         //           list.clear();
+         //           list=map.values.toList();
+         //           return ListTile(
+         //             title: Text(list.toString()),
+         //             subtitle: Text("id"),
+         //           );
+         //         }
+         //         else
+         //           {
+         //             return Container();
+         //           }
+         //
+         //       },
+         //     ),
+         // ),
 
         ],
       ),
@@ -232,56 +237,56 @@ class _FetchDataFormFireBaseStoreState extends State<FetchDataFormFireBaseStore>
   }
 
   /// Edit Dialog Box and this is Update code with firebase
-  // Future<void> showMyDialog(String title,String id) async{
-  //   editController.text=title;
-  //   return showDialog(
-  //
-  //       context: context,
-  //       builder:(BuildContext context)
-  //       {
-  //         return AlertDialog(
-  //           title: Text('Update'),
-  //           content:Container(
-  //             child: TextFormField(
-  //               maxLines: 4,
-  //               controller: editController,
-  //               decoration: InputDecoration(
-  //                   hintText: 'edit...'
-  //               ),
-  //
-  //             ),
-  //           ),
-  //           actions: [
-  //             // cencel button
-  //             TextButton(
-  //                 onPressed: () {
-  //                   Navigator.pop(context);
-  //                 },
-  //                 child:Text('Cencel',style: TextStyle(
-  //                     color: CustomsColors.c7
-  //                 ),)
-  //             ),
-  //
-  //             //Update Button
-  //             TextButton(
-  //               onPressed: () {
-  //                 Navigator.pop(context);
-  //                 ref.child(id).update(
-  //                     {
-  //                       'title': editController.text.toString()
-  //                     }).then((value){
-  //                   ErorrHandler().toastMessage('Update Successfully');
-  //                 }).onError((error, stackTrace){
-  //                   ErorrHandler().toastMessage(error.toString());
-  //                 });
-  //
-  //               },
-  //               child:Text('Update',style: TextStyle(color: CustomsColors.c7)),
-  //             ),
-  //           ],
-  //         );
-  //       }
-  //   );
-  //
-  // }
+  Future<void> showMyDialogue(String title,String id) async{
+    editController.text=title;
+    return showDialog(
+
+        context: context,
+        builder:(BuildContext context)
+        {
+          return AlertDialog(
+            title: Text('Update'),
+            content:Container(
+              child: TextFormField(
+                maxLines: 4,
+                controller: editController,
+                decoration: InputDecoration(
+                    hintText: 'edit...'
+                ),
+
+              ),
+            ),
+            actions: [
+              // cencel button
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child:Text('Cencel',style: TextStyle(
+                      color: CustomsColors.c7
+                  ),)
+              ),
+
+              //Update Button
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  ref.doc(id).update(
+                      {
+                        'title': editController.text.toString()
+                      }).then((value){
+                    ErrorHandler().toastMessage('Update Successfully');
+                  }).onError((error, stackTrace){
+                    ErrorHandler().toastMessage(error.toString());
+                  });
+
+                },
+                child:Text('Update',style: TextStyle(color: CustomsColors.c7)),
+              ),
+            ],
+          );
+        }
+    );
+
+  }
 }

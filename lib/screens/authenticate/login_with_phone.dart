@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_with_flutter/handler/ErorrHandler.dart';
+import 'package:firebase_with_flutter/handler/ErrorHandler.dart';
 import 'package:firebase_with_flutter/screens/authenticate/verification_code_screen.dart';
 import 'package:firebase_with_flutter/screens/widgete/RoundButton.dart';
 import 'package:firebase_with_flutter/utils/CustomsColors.dart';
@@ -110,7 +110,7 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
                           setState(() {
                             loading=false;
                           });
-                          ErorrHandler().toastMessage(e.toString());
+                          ErrorHandler().toastMessage(e.toString());
                         },
                         codeSent: (verificationId, forceResendingToken) {
                           setState(() {
@@ -122,7 +122,7 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
                           setState(() {
                             loading=false;
                           });
-                          ErorrHandler().toastMessage(v.toString());
+                          ErrorHandler().toastMessage(v.toString());
                         },
                     );
                   },

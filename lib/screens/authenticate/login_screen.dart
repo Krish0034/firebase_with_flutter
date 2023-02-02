@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 
-import '../../handler/ErorrHandler.dart';
+import '../../handler/ErrorHandler.dart';
 import '../../models/FriendList.dart';
 import '../home/InstaHomePage.dart';
 import '../widgete/RoundButton.dart';
@@ -50,14 +50,14 @@ class _LoginScreenState extends State<LoginScreen> {
       email: emailControlle.text,
       password: passwordControlle.text.toString(),
     ).then((value){
-      ErorrHandler().toastMessage(value.user!.email.toString());
+      ErrorHandler().toastMessage(value.user!.email.toString());
       Navigator.push(context, MaterialPageRoute(builder: (context)=>InstaHomePage()));
       setState(() {
         loading=false;
       });
     }).onError((error, stackTrace)
     {
-      ErorrHandler().toastMessage(error.toString());
+      ErrorHandler().toastMessage(error.toString());
       setState(() {
         loading=false;
       });

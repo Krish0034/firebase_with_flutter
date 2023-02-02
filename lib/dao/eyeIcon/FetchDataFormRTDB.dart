@@ -2,7 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
-import 'package:firebase_with_flutter/handler/ErorrHandler.dart';
+import 'package:firebase_with_flutter/handler/ErrorHandler.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/CustomsColors.dart';
@@ -110,8 +110,6 @@ class _FetchDataFormRTDBState extends State<FetchDataFormRTDB> with TickerProvid
           //               color: CustomsColors.c11,
           //               backgroundColor: CustomsColors.c3,
           //               strokeWidth: 5,
-          //
-          //
           //             ),
           //           );
           //         }
@@ -124,7 +122,7 @@ class _FetchDataFormRTDBState extends State<FetchDataFormRTDB> with TickerProvid
           //           return ListView.builder(
           //
           //               itemCount: snapshot.data!.snapshot.children.length ,
-          //             itemBuilder:(context, index) {
+          //               itemBuilder:(context, index) {
           //                 return ListTile(
           //                   title: Text(list[index]['title']),
           //                   subtitle: Text(list[index]['id']),
@@ -140,6 +138,7 @@ class _FetchDataFormRTDBState extends State<FetchDataFormRTDB> with TickerProvid
           Expanded(
             child: FirebaseAnimatedList(
                 query:ref,
+                // circular indicator..
                 defaultChild: Center(
                   child: CircularProgressIndicator(
                     color: CustomsColors.c11,
@@ -174,7 +173,7 @@ class _FetchDataFormRTDBState extends State<FetchDataFormRTDB> with TickerProvid
                             child: ListTile(
                               onTap: () {
                                 Navigator.pop(context);
-                                showMyDialog(title,id);
+                                showMyDialogue(title,id);
                               },
                               leading: Icon(Icons.edit),
                               title: Text('Edit'),
@@ -187,7 +186,12 @@ class _FetchDataFormRTDBState extends State<FetchDataFormRTDB> with TickerProvid
                             child: ListTile(
                               onTap: () {
                                 Navigator.pop(context);
-                                ref.child(snapshot.child('id').value.toString()).remove();
+                                ref.child(snapshot.child('id').value.toString()).remove()
+                                .then((value){
+                                  ErrorHandler().toastMessage('Deleted Successfully.');
+                                }).onError((error, stackTrace){
+                                  ErrorHandler().toastMessage(error.toString());
+                                });
                               },
                               leading: Icon(Icons.delete),
                               title: Text('Delete'),
@@ -233,7 +237,7 @@ class _FetchDataFormRTDBState extends State<FetchDataFormRTDB> with TickerProvid
   }
 
   /// Edit Dialog Box and this is Update code with firebase
-  Future<void> showMyDialog(String title,String id) async{
+  Future<void> showMyDialogue(String title,String id) async{
     editController.text=title;
     return showDialog(
 
@@ -271,9 +275,9 @@ class _FetchDataFormRTDBState extends State<FetchDataFormRTDB> with TickerProvid
                       {
                         'title': editController.text.toString()
                       }).then((value){
-                    ErorrHandler().toastMessage('Update Successfully');
+                    ErrorHandler().toastMessage('Update Successfully');
                   }).onError((error, stackTrace){
-                    ErorrHandler().toastMessage(error.toString());
+                    ErrorHandler().toastMessage(error.toString());
                   });
 
                 },

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_with_flutter/handler/ErorrHandler.dart';
+import 'package:firebase_with_flutter/handler/ErrorHandler.dart';
 import 'package:firebase_with_flutter/screens/widgete/RoundButton.dart';
 import 'package:firebase_with_flutter/utils/CustomsColors.dart';
 
@@ -84,13 +84,13 @@ class _FireStoreAddNewState extends State<FireStoreAddNew> {
                     loading=false;
                     textController.clear();
                   }),
-                  ErorrHandler().toastMessage('Add Successfully...')
+                  ErrorHandler().toastMessage('Add Successfully...')
                   })
                   .onError((error, stackTrace) => {
                     setState(() {
                       loading=false;
                     }),
-                    ErorrHandler().toastMessage(error.toString())
+                    ErrorHandler().toastMessage(error.toString())
                   });
 
                 }

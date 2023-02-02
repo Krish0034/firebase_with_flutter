@@ -5,7 +5,7 @@ import 'package:firebase_with_flutter/utils/CustomsColors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../handler/ErorrHandler.dart';
+import '../../handler/ErrorHandler.dart';
 import '../widgete/RoundButton.dart';
 
 ///********** Add Device FingerePrint in Firebase Project And Cmd is
@@ -108,7 +108,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                       setState(() {
                         loading=false;
                       });
-                      ErorrHandler().toastMessage(e.toString());
+                      ErrorHandler().toastMessage(e.toString());
 
                     }
                   },

@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_with_flutter/handler/ErorrHandler.dart';
+import 'package:firebase_with_flutter/handler/ErrorHandler.dart';
 import 'package:firebase_with_flutter/screens/widgete/RoundButton.dart';
 import 'package:firebase_with_flutter/utils/CustomsColors.dart';
 
@@ -77,7 +77,7 @@ class _RTDBAddNewState extends State<RTDBAddNew> {
                        'title': textController.text.toString()})
                      .then((value)
                      {
-                       ErorrHandler().toastMessage('AddNew Successfully');
+                       ErrorHandler().toastMessage('AddNew Successfully');
                        setState(() {
                          loading=false;
                          textController.clear();
@@ -85,7 +85,7 @@ class _RTDBAddNewState extends State<RTDBAddNew> {
                      }
                      )
                      .onError((error, stackTrace){
-                       ErorrHandler().toastMessage(error.toString());
+                       ErrorHandler().toastMessage(error.toString());
                        setState(() {
                          loading=false;
                        });

@@ -1,7 +1,7 @@
 import 'package:firebase_with_flutter/utils/CustomsColors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ErorrHandler
+class ErrorHandler
 {
  void toastMessage(String messs)
  {

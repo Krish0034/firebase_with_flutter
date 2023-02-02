@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_with_flutter/handler/ErorrHandler.dart';
+import 'package:firebase_with_flutter/handler/ErrorHandler.dart';
 import 'package:firebase_with_flutter/screens/authenticate/login_screen.dart';
 import 'package:firebase_with_flutter/utils/CustomsColors.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../dao/addicon/FireStoreAddNew.dart';
+import '../../dao/addicon/UploadImageScree.dart';
 import '../../dao/eyeIcon/FetchDataFormFireBaseStore.dart';
 import '../../dao/eyeIcon/FetchDataFormRTDB.dart';
 import '../../models/FriendList.dart';
@@ -61,6 +62,7 @@ class _InstaHomePageState extends State<InstaHomePage> {
                     color: CustomsColors.c6.withOpacity(0.7),
                   ),
                  itemBuilder:(context) => [
+                   //PopmenuIcon for RealTime DataBase
                    PopupMenuItem(
                      child:ListTile(
                        onTap: () {
@@ -71,6 +73,8 @@ class _InstaHomePageState extends State<InstaHomePage> {
                      ),
                      value: 1,
                    ),
+
+                   // PopmenuIcon for FireStore DataBase
                    PopupMenuItem(
                        child:ListTile(
                          onTap: () {
@@ -78,6 +82,18 @@ class _InstaHomePageState extends State<InstaHomePage> {
                          },
                          leading: Icon(MdiIcons.cloudUpload),
                          title: Text('FireStoreDB'),
+                       ),
+                     value:2 ,
+                   ),
+
+                   // PopmenuIcon for Upload Image
+                   PopupMenuItem(
+                       child:ListTile(
+                         onTap: () {
+                           Navigator.push(context, MaterialPageRoute(builder: (context)=> UploadImageScree()));
+                         },
+                         leading: Icon(Icons.image),
+                         title: Text('UploadImage'),
                        ),
                      value:2 ,
                    ),
@@ -132,7 +148,7 @@ class _InstaHomePageState extends State<InstaHomePage> {
                     auth.signOut().then((value){
                       Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginScreen()));
                     }).onError((error, stackTrace){
-                      ErorrHandler().toastMessage(error.toString());
+                      ErrorHandler().toastMessage(error.toString());
                     });
                   },
                   icon:Icon(

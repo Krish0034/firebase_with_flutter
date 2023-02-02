@@ -1,6 +1,6 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_with_flutter/handler/ErorrHandler.dart';
+import 'package:firebase_with_flutter/handler/ErrorHandler.dart';
 import 'package:firebase_with_flutter/screens/authenticate/login_screen.dart';
 import 'package:firebase_with_flutter/screens/authenticate/signup_with_phone_no.dart';
 import 'package:firebase_with_flutter/screens/widgete/RoundButton.dart';
@@ -54,7 +54,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
        });
 
      }).onError((error, stackTrace) {
-        ErorrHandler().toastMessage(error.toString());
+        ErrorHandler().toastMessage(error.toString());
         setState(() {
           loading=false;
         });

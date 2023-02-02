@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../handler/ErorrHandler.dart';
+import '../../handler/ErrorHandler.dart';
 import '../../utils/CustomsColors.dart';
 import '../../utils/PageBgColor.dart';
 import '../widgete/RoundButton.dart';
@@ -109,7 +109,7 @@ class _SignUpWithPhoneNumberState extends State<SignUpWithPhoneNumber> {
                         setState(() {
                           loading=false;
                         });
-                        ErorrHandler().toastMessage(e.toString());
+                        ErrorHandler().toastMessage(e.toString());
                       },
                       codeSent: (verificationId, forceResendingToken) {
                         setState(() {
@@ -121,7 +121,7 @@ class _SignUpWithPhoneNumberState extends State<SignUpWithPhoneNumber> {
                         setState(() {
                           loading=false;
                         });
-                        ErorrHandler().toastMessage(v.toString());
+                        ErrorHandler().toastMessage(v.toString());
                       },
                     );
                   },
