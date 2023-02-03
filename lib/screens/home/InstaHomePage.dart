@@ -179,17 +179,18 @@ class _InstaHomePageState extends State<InstaHomePage> {
         ),
       ),
       backgroundColor: CustomsColors.c3,
-      body: ListView(
-       // mainAxisAlignment: MainAxisAlignment.start,
-        shrinkWrap: true,
-        children: [
-          // Home Page Post Imagese
-          Container(
-              height: MediaQuery.of(context).size.height-200,
-              child: HomePageMaterial()
-         ),
-        ],
+      body:SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child:Column(
+          children: [
+            HomePageMaterial(),
+          ],
+        ),
       )
+      // Container(
+          // height: MediaQuery.of(context).size.height+200,
+          // child: HomePageMaterial()
+         // )
     );
   }
   // Widget countBuilder(int likeCount,bool isLiked,Text text)
