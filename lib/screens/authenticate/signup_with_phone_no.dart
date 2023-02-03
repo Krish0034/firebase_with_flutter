@@ -91,6 +91,7 @@ class _SignUpWithPhoneNumberState extends State<SignUpWithPhoneNumber> {
                 SizedBox(height: 50,),
                 // Login Button Code
                 RoundButton(
+                  color: CustomsColors.c3,
                   loading: loading,
                   title: 'Login',
                   onTap:() {

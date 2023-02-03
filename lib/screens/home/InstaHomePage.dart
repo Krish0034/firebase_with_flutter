@@ -8,6 +8,7 @@ import '../../dao/addicon/FireStoreAddNew.dart';
 import '../../dao/addicon/UploadImageScree.dart';
 import '../../dao/eyeIcon/FetchDataFormFireBaseStore.dart';
 import '../../dao/eyeIcon/FetchDataFormRTDB.dart';
+import '../../dao/eyeIcon/ShowImage.dart';
 import '../../models/FriendList.dart';
 import '../../dao/addicon/RTDBAddNew.dart';
 import '../chatpage/ChatPage.dart';
@@ -125,6 +126,16 @@ class _InstaHomePageState extends State<InstaHomePage> {
                          },
                          leading: Icon(MdiIcons.cloudUpload),
                          title: Text('FireStoreDB'),
+                       ),
+                     value:2 ,
+                   ),
+                   PopupMenuItem(
+                       child:ListTile(
+                         onTap: () {
+                           Navigator.push(context, MaterialPageRoute(builder: (context)=> ShowImage()));
+                         },
+                         leading: Icon(MdiIcons.download),
+                         title: Text('ImageDownload'),
                        ),
                      value:2 ,
                    ),

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:hexcolor/hexcolor.dart';
 
 class CustomsColors {
+
   static Color c1 = HexColor('#964B00'); //Brown[100]
   static Color c2 = HexColor('#8D6E63'); //Brown[400]
   static Color c3 = HexColor('#ffffff'); //White

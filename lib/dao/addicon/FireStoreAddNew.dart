@@ -67,6 +67,7 @@ class _FireStoreAddNewState extends State<FireStoreAddNew> {
             ),
             SizedBox(height: 40,),
             RoundButton(
+                color: CustomsColors.c3,
                 loading: loading,
                 title: 'Add',
                 onTap: ()

@@ -94,6 +94,7 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
               RoundButton(
                   loading: loading,
                   title: 'Login',
+                  color: CustomsColors.c3,
                   onTap:() {
                     setState(() {
                       loading=true;

@@ -64,6 +64,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    double _width=MediaQuery.of(context).size.width;
+    double _height=MediaQuery.of(context).size.height;
     return  WillPopScope(
       onWillPop: ()async{
         SystemNavigator.pop();
@@ -81,26 +84,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             backgroundColor: CustomsColors.c5,
           ),
-          body:SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height-90,
-              decoration:BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [
-                        PageBgColor.c6,
-                        PageBgColor.c1,
-                        PageBgColor.c3,
-                        PageBgColor.c2,
-                        PageBgColor.c4,
-                      ]
-                  )
-              ),
+          body:Container(
+            width: _width,
+            height:_height-90,
+            decoration:BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [
+                      PageBgColor.c6,
+                      PageBgColor.c1,
+                      PageBgColor.c3,
+                      PageBgColor.c2,
+                      PageBgColor.c4,
+                    ]
+                )
+            ),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 60,),
+                  SizedBox(height: _height/15.2,),
                   // instagram heading
                   Text('Instagram',style: TextStyle(
                       fontFamily: 'Calinea',
@@ -109,7 +112,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       letterSpacing: 1.0,
                       color: CustomsColors.c3
                   ),),
-                  const SizedBox(height: 10,),
+                  SizedBox(height: 10,),
                   // TextFormField
                   Form(
                       key: _formKey,
@@ -240,14 +243,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ],
                       )
                   ),
-                  const SizedBox(height: 10,),
+                  SizedBox(height: 10,),
                   // SignUp Button
                   RoundButton(
                     title: 'SignUp',
                     loading: loading,
+                    color: CustomsColors.c3,
                     onTap:() {
+
                       if(_formKey.currentState!.validate())
                       {
+
                         signUP();
                       }
                       setState(() {
@@ -259,7 +265,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       });
                     },
                   ),
-                  const SizedBox(height: 40),
+                  SizedBox(height: 40),
                   // ------------------- OR -------------- Code
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -287,7 +293,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10),
                   // Signup with FaceBook
                   Padding(
                     padding: const EdgeInsets.only(left: 65,right: 65),
@@ -358,8 +364,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                 ],
               ),
-
             ),
+
           )
       ),
     );

@@ -64,6 +64,7 @@ class _RTDBAddNewState extends State<RTDBAddNew> {
             ),
             SizedBox(height: 40,),
             RoundButton(
+                color: CustomsColors.c3,
                 loading: loading,
                 title: 'Add',
                 onTap: ()

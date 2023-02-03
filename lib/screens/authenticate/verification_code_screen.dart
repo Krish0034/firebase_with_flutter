@@ -88,6 +88,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                 SizedBox(height: 50,),
                 // Login Button Code
                 RoundButton(
+                  color: CustomsColors.c3,
                   loading: loading,
                   title: 'Verify',
                   onTap:() async{

@@ -6,8 +6,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:video_player/video_player.dart';
-
 import '../../handler/ErrorHandler.dart';
 import '../../screens/widgete/RoundButton.dart';
 import '../../utils/CustomsColors.dart';
@@ -34,7 +32,11 @@ class _UploadImageScreeState extends State<UploadImageScree> {
 
 
   // FireBase Storage
+
+  // its Create image name in firebaseStorage EX. imageFolder(second).jpg
   final storageRef = FirebaseStorage.instance.ref('/imageFolder'+DateTime.now().millisecond.toString());
+
+  // its Create ImageVideo Node in FirebaseDatabase
   DatabaseReference databaseRef=FirebaseDatabase.instance.ref('ImageVideo');
 
   // Get image from gallery
@@ -291,9 +293,11 @@ class _UploadImageScreeState extends State<UploadImageScree> {
               //Upload Button to submit
               SizedBox(height: 15,),
               RoundButton(
+                color: CustomsColors.c3,
                 title:'Upload',
                 onTap: () async{
                   setState(() {
+
                     loading=true;
                   });
                   UploadTask imageGallery= storageRef.putFile(_imageForGaller!.absolute);
@@ -310,7 +314,7 @@ class _UploadImageScreeState extends State<UploadImageScree> {
                       //urlList.add(storageRef.getDownloadURL());
                       databaseRef.child(id).set({
                         'id':id,
-                        'path': await storageRef.getDownloadURL().toString()
+                        'path': await storageRef.getDownloadURL()
                       }).then((value){
                         ErrorHandler().toastMessage("Image And Video Path Uploaded Successfully");
                         setState(() {

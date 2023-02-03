@@ -11,6 +11,7 @@ import '../../handler/ErrorHandler.dart';
 import '../../models/FriendList.dart';
 import '../home/InstaHomePage.dart';
 import '../widgete/RoundButton.dart';
+import 'ForgetPassScreen.dart';
 import 'login_with_phone.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -31,6 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String email='';
   String password='';
+
+
 
   @override
   void dispose()
@@ -66,6 +69,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    double _width=MediaQuery.of(context).size.width;
+    double _height=MediaQuery.of(context).size.height;
     return  WillPopScope(
       onWillPop: () async{
         SystemNavigator.pop();
@@ -83,26 +88,26 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           backgroundColor: CustomsColors.c5,
         ),
-        body:SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height-90,
-            decoration:BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  PageBgColor.c6,
-                  PageBgColor.c1,
-                  PageBgColor.c3,
-                  PageBgColor.c2,
-                  PageBgColor.c4,
-                ]
-              )
-            ),
+        body:Container(
+          width: _width,
+          height: _height-90,
+          decoration:BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                PageBgColor.c6,
+                PageBgColor.c1,
+                PageBgColor.c3,
+                PageBgColor.c2,
+                PageBgColor.c4,
+              ]
+            )
+          ),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(height: 90,),
+                SizedBox(height: _height/22.8,),
                 // Instagram heading
                 Text('Instagram',style: TextStyle(
                   fontFamily: 'Calinea',
@@ -111,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   letterSpacing: 1.0,
                   color: CustomsColors.c3
                 ),),
-                const SizedBox(height: 10,),
+                SizedBox(height: _height/91.2,),
                 // TextFormField
                 Form(
                     key: _formKey,
@@ -205,11 +210,33 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     )
                 ),
+                //Forget Password
+                Padding(
+                  padding: const EdgeInsets.only(right: 15,top: 2),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: TextButton(
+                       style: ButtonStyle(
+                          overlayColor: MaterialStateColor.resolveWith((states) => Colors.green),
+                        ),
+                        onPressed: (){
+                         Navigator.push(context,MaterialPageRoute(builder: (context)=>ForgetPassScreen()));
+                        },
+                        child:Text('Forget Password',style: TextStyle(height: 0,fontSize: 17,color: CustomsColors.c4,letterSpacing: 1.0),)
+                    ),
+                  ),
+                ),
+
                 // Login Button
                 RoundButton(
                   title: 'LogIn',
+                  color: CustomsColors.c3,
                   loading: loading,
                   onTap:(){
+                    print("Width**************");
+                    print(_width);
+                    print("Height**************");
+                    print(_height);
                     if(_formKey.currentState!.validate())
                     {
                       logIn();
@@ -221,7 +248,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
                   },
                 ),
-                const SizedBox(height: 40),
+                SizedBox(height: _height/45.6),
                 // ------------- OR ---------- code
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -249,7 +276,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: 30/30.4),
                 //Login with FaceBook
                 Padding(
                   padding: const EdgeInsets.only(left: 65,right: 65),
@@ -271,7 +298,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       )
                   ),
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: _height/30.4),
                 //Login With Phone Number
                 InkWell(
                   onTap: () {
@@ -293,7 +320,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),)),
                   ),
                 ),
-                const SizedBox(height: 115,),
+                SizedBox(height:_height/5.3,),
                 // Divider
                 Divider(
                   color: CustomsColors.c10,
@@ -321,8 +348,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
               ],
             ),
-
           ),
+
         )
       ),
     );
